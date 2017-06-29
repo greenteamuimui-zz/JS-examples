@@ -53,15 +53,37 @@
 
 
 //FIBONACCI
-function fibonacci(n) {
-  if (n === 1) {
-    return [1];
-  } else if (n === 2) {
-    return [1, 1];
+// function fibonacci(n) {
+//   if (n === 1) {
+//     return [1];
+//   } else if (n === 2) {
+//     return [1, 1];
+//   } else {
+//     let prev = fibonacci(n-1);
+//     return prev.concat(prev.slice(-1)[0] + prev.slice(-2)[0]);
+//   }
+// }
+//
+// console.log(fibonacci(7))
+
+
+
+function bsearch(arr, target) {
+  let mid = Math.floor((arr.length / 2));
+  console.log(`mid is: ${mid}`)
+
+  if (arr.length === 0) {
+    return -1;
+  } else if (target < arr[mid]) {
+    return bsearch(arr.slice(0, mid), target);
+  } else if (target === arr[mid]) {
+    return mid;
   } else {
-    let prev = fibonacci(n-1);
-    return prev.concat(prev.slice(-1)[0] + prev.slice(-2)[0]);
+    let result = bsearch(arr.slice(mid + 1), target);
+    return !result ? -1 : (result + mid + 1);
   }
 }
 
-console.log(fibonacci(7))
+console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 4))
+console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 204))
+console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 8))

@@ -68,22 +68,46 @@
 
 
 
-function bsearch(arr, target) {
-  let mid = Math.floor((arr.length / 2));
-  console.log(`mid is: ${mid}`)
+// function bsearch(arr, target) {
+//   let mid = Math.floor((arr.length / 2));
+//
+//   if (arr.length === 0) {
+//     return -1;
+//   } else if (target < arr[mid]) {
+//     return bsearch(arr.slice(0, mid), target);
+//   } else if (target === arr[mid]) {
+//     return mid;
+//   } else {
+//     let result = bsearch(arr.slice(mid + 1), target);
+//     return !result ? -1 : (result + mid + 1);
+//   }
+// }
+//
+// console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 4))
+// console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 204))
+// console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 8))
 
-  if (arr.length === 0) {
-    return -1;
-  } else if (target < arr[mid]) {
-    return bsearch(arr.slice(0, mid), target);
-  } else if (target === arr[mid]) {
-    return mid;
-  } else {
-    let result = bsearch(arr.slice(mid + 1), target);
-    return !result ? -1 : (result + mid + 1);
+
+function mergesort(arr, callback) {
+  if (arr.length < 2) {
+    return arr;
   }
+  let mid = Math.floor(arr.length/2);
+  let left = arr.slice(0, mid);
+  let right = arr.slice(mid);
+  let sorted_left = mergesort(left);
+  let sorted_right = mergesort(right);
+  console.log(callback)
+  return callback(sorted_left, sorted_right);
 }
 
-console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 4))
-console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 204))
-console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 8))
+const merge = function(m_left, m_right) {
+  let ans = [];
+  console.log(m_left)
+  while (m_left.length > 0 && m_right.legnth > 0) {
+    ans.concat(m_left[0] < m_right[0] ? m_left.shift : m_right.shift );
+  }
+  return (ans + m_left + m_right);
+}
+
+console.log(mergesort([5, 2, 6, 1, 2], merge()))

@@ -88,7 +88,7 @@
 // console.log(bsearch([1, 4, 7, 9, 11, 204, 9000], 8))
 
 
-function mergesort(arr, callback) {
+function mergesort(arr) {
   if (arr.length < 2) {
     return arr;
   }
@@ -97,17 +97,17 @@ function mergesort(arr, callback) {
   let right = arr.slice(mid);
   let sorted_left = mergesort(left);
   let sorted_right = mergesort(right);
-  console.log(callback)
-  return callback(sorted_left, sorted_right);
+
+  return merge(sorted_left, sorted_right);
 }
 
 const merge = function(m_left, m_right) {
   let ans = [];
-  console.log(m_left)
-  while (m_left.length > 0 && m_right.legnth > 0) {
-    ans.concat(m_left[0] < m_right[0] ? m_left.shift : m_right.shift );
+
+  while (m_left.length > 0 && m_right.length > 0) {
+    ans.push(m_left[0] < m_right[0] ? m_left.shift() : m_right.shift() );
   }
-  return (ans + m_left + m_right);
+  return (ans.concat(m_left).concat(m_right));
 }
 
-console.log(mergesort([5, 2, 6, 1, 2], merge()))
+console.log(mergesort([5, 2, 6, 1, 2]))
